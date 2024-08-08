@@ -1,6 +1,6 @@
-package repository;
+package org.example.repository;
 
-import entitiy.User;
+import org.example.entitiy.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

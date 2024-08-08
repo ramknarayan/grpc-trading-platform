@@ -1,6 +1,6 @@
-package repository;
+package org.example.repository;
 
-import entitiy.PortfolioItem;
+import org.example.entitiy.PortfolioItem;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

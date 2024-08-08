@@ -1,4 +1,4 @@
-package entitiy;
+package org.example.entitiy;
 
 
 import jakarta.persistence.*;
