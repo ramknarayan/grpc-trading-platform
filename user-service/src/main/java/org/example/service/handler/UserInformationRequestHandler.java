@@ -1,9 +1,9 @@
-package service.handler;
+package org.example.user.tests.service.handler;
 
-import org.example.exceptions.UnknowUserException;
-import org.example.repository.PortfolioItemRepository;
-import org.example.repository.UserRepository;
-import org.example.util.EntityMessageMapper;
+import org.example.user.tests.exceptions.UnknowUserException;
+import org.example.user.tests.repository.PortfolioItemRepository;
+import org.example.user.tests.repository.UserRepository;
+import org.example.user.tests.util.EntityMessageMapper;
 import org.springframework.stereotype.Service;
 
 @Service

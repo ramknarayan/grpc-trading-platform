@@ -1,4 +1,4 @@
-package org.example.exceptions;
+package org.example.user.tests.exceptions;
 
 public class UnknownTickerException extends RuntimeException{
     private static final String MESSAGE = "Ticker is not found";

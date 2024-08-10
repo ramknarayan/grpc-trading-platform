@@ -1,4 +1,4 @@
-package org.example.exceptions;
+package org.example.user.tests.exceptions;
 
 public class UnknowUserException extends RuntimeException{
     private static final String MESSAGE ="User [id=%d] is not found";

@@ -1,13 +1,15 @@
-package service.handler;
+package org.example.user.tests.service.handler;
 
 
+import jakarta.transaction.Transactional;
 import org.example.common.Ticker;
-import org.example.exceptions.InsufficientBalanceException;
-import org.example.exceptions.UnknowUserException;
-import org.example.exceptions.UnknownTickerException;
-import org.example.repository.PortfolioItemRepository;
-import org.example.repository.UserRepository;
-import org.example.util.EntityMessageMapper;
+import org.example.user.tests.exceptions.InsufficientBalanceException;
+import org.example.user.tests.exceptions.InsufficientSharesException;
+import org.example.user.tests.exceptions.UnknowUserException;
+import org.example.user.tests.exceptions.UnknownTickerException;
+import org.example.user.tests.repository.PortfolioItemRepository;
+import org.example.user.tests.repository.UserRepository;
+import org.example.user.tests.util.EntityMessageMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +21,7 @@ public class StockTradeRequestHandler {
         this.userRepository = userRepository;
         this.portfolioItemRepository = portfolioItemRepository;
     }
-
+    @Transactional
     public org.example.user.StockTradeResponse buyStock(org.example.user.StockTradeRequest request)
     {
             //validate
@@ -36,9 +38,24 @@ public class StockTradeRequestHandler {
                                 ()-> this.portfolioItemRepository.save(EntityMessageMapper.toPortfolioItem(request))
                         );
 
-        return  null;
+        return EntityMessageMapper.toStockTradeResponse(request,user.getBalance());
     }
+    @Transactional
+    public org.example.user.StockTradeResponse sellStock(org.example.user.StockTradeRequest request)
+    {
+        //validate
+        this.validateTicker(request.getTicker());
+        var user = this.userRepository.findById(request.getUserId())
+                .orElseThrow(()->new UnknowUserException(request.getUserId()));
+        var portfolioItem = this.portfolioItemRepository.findByUserIdAndTicker(user.getId(),request.getTicker())
+                .filter(pi ->pi.getQuantity() > request.getQuantity())
+                .orElseThrow(()-> new InsufficientSharesException(user.getId()));
+        var totalPrice = request.getQuantity() * request.getPrice();
+        user.setBalance(user.getBalance() + totalPrice);
+        portfolioItem.setQuantity(portfolioItem.getQuantity()- request.getQuantity());
+        return EntityMessageMapper.toStockTradeResponse(request, user.getBalance());
 
+    }
     private void validateTicker(org.example.common.Ticker ticker){
         if(Ticker.UNKNOWN.equals(ticker)){
             throw new UnknownTickerException();

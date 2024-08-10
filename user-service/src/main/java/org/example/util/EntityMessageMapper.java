@@ -1,7 +1,7 @@
-package org.example.util;
+package org.example.user.tests.util;
 
-import org.example.entitiy.PortfolioItem;
-import org.example.entitiy.User;
+import org.example.user.tests.entitiy.PortfolioItem;
+import org.example.user.tests.entitiy.User;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class EntityMessageMapper {
 
     public static PortfolioItem toPortfolioItem(org.example.user.StockTradeRequest request){
         var item = new PortfolioItem();
-        item.setUserid(request.getUserId());
+        item.setUserId(request.getUserId());
         item.setTicker(request.getTicker());
         item.setQuantity(request.getQuantity());
         return item;

@@ -1,4 +1,4 @@
-package org.example.entitiy;
+package org.example.user.tests.entitiy;
 
 
 import jakarta.persistence.Entity;
@@ -8,6 +8,11 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name ="customer")
 public class User {
+    @Id
+    private Integer id;
+    private String name;
+    private Integer balance;
+
     public Integer getId() {
         return id;
     }
@@ -32,8 +37,5 @@ public class User {
         this.balance = balance;
     }
 
-    @Id
-    private Integer id;
-    private String name;
-    private Integer balance;
+
 }

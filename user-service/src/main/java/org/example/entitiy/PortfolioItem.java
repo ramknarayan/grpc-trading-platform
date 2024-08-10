@@ -1,4 +1,4 @@
-package org.example.entitiy;
+package org.example.user.tests.entitiy;
 
 
 import jakarta.persistence.*;
@@ -8,6 +8,14 @@ import org.example.common.Ticker;
 @Entity
 @Table(name ="portfolio_item")
 public class PortfolioItem {
+    @Id
+    @GeneratedValue
+    private Integer id;
+    @Column(name = "customer_id")
+    private Integer userId;
+    private Ticker ticker;
+    private Integer quantity;
+
     public Integer getId() {
         return id;
     }
@@ -16,12 +24,12 @@ public class PortfolioItem {
         this.id = id;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Ticker getTicker() {
@@ -40,11 +48,6 @@ public class PortfolioItem {
         this.quantity = quantity;
     }
 
-    @Id
-    @GeneratedValue
-    @Column(name ="customer_id")
-    private Integer id;
-    private  Integer userid;
-    private org.example.common.Ticker ticker;
-    private Integer quantity;
+
+
 }
